@@ -27,10 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Create data folder and sample CSV for evals.py
-      - name: Create data folder and sample CSV
+      # Create data folder and placeholder files for evals.py
+      - name: Create data folder and placeholder files
         run: |
           mkdir -p data
+          touch data/.keep
           echo "Input,Output" > data/finance_eval_dataset.csv
           echo "Set my username to testuser,Username set to testuser" >> data/finance_eval_dataset.csv
 
@@ -74,10 +75,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Create data folder for SQLite database
-      - name: Create data folder
+      # Create data folder and placeholder file for SQLite database
+      - name: Create data folder and placeholder
         run: |
           mkdir -p data
+          touch data/.keep
 
       # Deploy to Streamlit Cloud
       - name: Deploy to Streamlit
