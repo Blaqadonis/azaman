@@ -38,6 +38,7 @@ jobs:
       - name: Run pytest tests
         env:
           PYTHONPATH: .
+          DATA_PATH: data/azaman.db
         run: |
           pytest tests/ -v
 
@@ -47,6 +48,7 @@ jobs:
           PYTHONPATH: .
           TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          DATA_PATH: data/azaman.db
         run: |
           python evals.py
 
@@ -85,3 +87,4 @@ jobs:
           requirements-file: requirements.txt
         env:
           STREAMLIT_CLOUD_TOKEN: ${{ secrets.STREAMLIT_CLOUD_TOKEN }}
+          DATA_PATH: data/azaman.db
