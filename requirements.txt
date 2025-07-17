@@ -1,0 +1,17 @@
+streamlit==1.46.0
+plotly==6.1.2
+langchain==0.3.26
+langchain-core==0.3.68
+langchain-groq==0.3.2
+langchain-together==0.3.0
+langchain-openai==0.3.24
+langgraph==0.5.2
+langgraph-checkpoint-sqlite==2.0.10
+python-dotenv==1.1.0
+requests==2.32.4
+openevals==0.1.0
+gradio==5.34.2
+
+# Testing dependencies
+pytest==8.4.1
+pytest-mock==3.14.1

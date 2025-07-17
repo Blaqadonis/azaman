@@ -1,0 +1,62 @@
+name: Aza Man CI/CD
+
+# Trigger the workflow on push or pull requests to the main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Python 3.10 to match project environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Install dependencies from requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Run pytest tests in tests/ directory
+      - name: Run pytest tests
+        env:
+          PYTHONPATH: .
+        run: |
+          pytest tests/ -v
+
+      # Run evals.py for system testing
+      - name: Run evaluation tests
+        env:
+          PYTHONPATH: .
+          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+        run: |
+          python evals.py
+
+  deploy:
+    # Only run deployment on push to main branch
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      # Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Deploy to Streamlit Cloud
+      - name: Deploy to Streamlit
+        uses: streamlit/streamlit-action@v0.0.3
+        with:
+          app-path: app.py
+          requirements-file: requirements.txt
+        env:
+          STREAMLIT_CLOUD_TOKEN: ${{ secrets.STREAMLIT_CLOUD_TOKEN }}
