@@ -1,6 +1,6 @@
 # Aza Man: AI-Powered Autonomous Financial Assistant
 
-<img width="1402" height="552" alt="azaman2" src="https://github.com/user-attachments/assets/a270c3eb-585a-4845-b2dc-325a5e27554e" />
+<img width="1402" height="552" alt="azaman2" src="https://github.com/user-attachments/assets/a270c3eb-585a-4845-b2dc-325a5e27554e" /> 
 
   
 ___________________________________________________________________________________________
