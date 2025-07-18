@@ -13,7 +13,7 @@ In the rapidly evolving landscape of artificial intelligence, agentic AI systems
 
 The Agentic AI Developer Certification Program emphasizes hands-on development of real-world AI systems, with Module 2 focusing on Building Agentic Systems at Scale. Aza Man addresses the growing demand for accessible financial management tools, particularly in regions like Nigeria, where economic challenges underscore the need for personalized budgeting solutions. By leveraging LangGraph for workflow orchestration, and SQLite for state persistence, Aza Man delivers a robust, scalable solution.
 
-This publication details Aza Man’s architecture, functionality, evaluation, and its impact as a portfolio project for the certification program. It also highlights lessons learned and future optimization opportunities. 
+This publication details Aza Man’s architecture, functionality, evaluation, and its impact as a portfolio project for the certification program. It also highlights lessons learned and future optimization opportunities.
 
 ## 2. System Architecture
 Aza Man is built with a modular, extensible Multi-agent system architecture to support autonomous financial management. Its core components include:
