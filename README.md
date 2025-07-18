@@ -1,6 +1,7 @@
 # Aza Man: AI-Powered Autonomous Financial Assistant
 
-<img width="1402" height="552" alt="azaman2" src="https://github.com/user-attachments/assets/474467e9-ea9e-413f-bfa1-bdab5a43c445" />
+<img width="1402" height="552" alt="azaman2" src="https://github.com/user-attachments/assets/a270c3eb-585a-4845-b2dc-325a5e27554e" />
+
   
 ___________________________________________________________________________________________
 
@@ -22,7 +23,8 @@ Aza Man is built with a modular, extensible Multi-agent system architecture to s
 * Equipped with Finance Tools: Aza Man integrates with SOTA models that make tool calls. Tools like ```set_username``` ```budget``` ```log_expense``` and ```math_tool``` enable dynamic updates to the user’s financial state.
 * Streamlit Interface: A user-friendly Streamlit frontend provides an interactive dashboard.
 
-![Screen Recording - Jul 15, 2025-VEED](https://github.com/user-attachments/assets/386c5eef-519d-43ee-9054-983ef25f3910)
+![Screen Recording - Jul 15, 2025-VEED](https://github.com/user-attachments/assets/9d05d6c4-5ac8-4227-ace3-67a335615001)
+
 
 
 
