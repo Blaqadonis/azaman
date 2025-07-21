@@ -5,7 +5,7 @@
   
 ___________________________________________________________________________________________
 
-# Abstract 
+# Abstract
 **Aza Man** is a Multi-Agent AI system developed as part of **Module 2** of the **Agentic AI Developer Certification Program 2025**, offered by **Ready Tensor**. With a [supervisor architecture(tool-calling)](https://langchain-ai.github.io/langgraph/concepts/multi_agent/#multi-agent-architectures), it was designed to empower users with personalized financial management. Aza Man leverages LangGraph and SQLite to deliver a conversational assistant capable of setting budgets, tracking expenses, and managing savings goals with autonomy and context-awareness. Built with a modular architecture, it integrates tool-calling capabilities via [OpenRouter](https://openrouter.ai/), [Groq](https://console.groq.com/), and [TogetherAI](https://api.together.xyz/) for cost-efficient access to state-of-the-art (SOTA) language models. Aza Man features a Streamlit interface for seamless user interaction and a SQLite-backed state management system for long-term persistence.  Aza Man showcases the potential of AI agents to transform personal finance, promoting financial literacy and empowerment through intelligent automation.
 
 ## 1. Introduction
