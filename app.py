@@ -190,10 +190,6 @@ def login_page():
                         st.session_state["messages"].append(
                             AIMessage(content=f"Welcome back, {state['username']}! How may I assist you?")
                         )
-                    else:
-                        st.session_state["messages"].append(
-                            AIMessage(content="Welcome to Aza Man! Please set your username to get started.")
-                        )
                 except Exception as e:
                     logger.error(f"Error fetching initial state: {str(e)}")
                     st.session_state["messages"].append(
