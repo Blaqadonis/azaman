@@ -18,7 +18,7 @@ PROJECT_CONFIG = {
     "youtube_url": "https://youtu.be/8CEyOVjqtRI",
     "author_linkedin": "https://www.linkedin.com/in/chinonsoodiaka/",
     "author_name": "🅱🅻🅰🆀",
-    "data_path": "azaman.db",
+    "data_path": "data/azaman.db",
     "model": "meta-llama/llama-4-maverick-17b-128e-instruct",
     "evaluator": "deepseek-ai/DeepSeek-V3",
     "provider": "groq",
