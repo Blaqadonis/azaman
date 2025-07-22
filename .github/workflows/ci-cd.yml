@@ -33,7 +33,7 @@ jobs:
       - name: Run pytest tests
         env:
           PYTHONPATH: .
-          DATA_PATH: data/azaman.db
+          DATA_PATH: azaman.db
         run: |
           pytest tests/ -v
 
@@ -42,7 +42,7 @@ jobs:
           PYTHONPATH: .
           TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          DATA_PATH: data/azaman.db
+          DATA_PATH: azaman.db
         run: |
           python evals.py
 
