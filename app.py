@@ -1,5 +1,3 @@
-"""Project configuration for Aza Man."""
-
 import sys
 import os
 import re
@@ -26,6 +24,12 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
+
+# Ensure data directory exists
+data_dir = os.path.dirname(PROJECT_CONFIG["data_path"])
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+    logger.debug(f"Created data directory: {data_dir}")
 
 # Initialize the Graph
 conn = sqlite3.connect(PROJECT_CONFIG["data_path"], check_same_thread=False)
@@ -186,10 +190,14 @@ def login_page():
                         st.session_state["messages"].append(
                             AIMessage(content=f"Welcome back, {state['username']}! How may I assist you?")
                         )
+                    else:
+                        st.session_state["messages"].append(
+                            AIMessage(content="Welcome to Aza Man! Please set your username to get started.")
+                        )
                 except Exception as e:
                     logger.error(f"Error fetching initial state: {str(e)}")
                     st.session_state["messages"].append(
-                        AIMessage(content=f"Error loading session.")
+                        AIMessage(content=f"Error loading session: {str(e)}")
                     )
                 if not is_test_environment():
                     st.rerun()
