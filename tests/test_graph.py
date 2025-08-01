@@ -181,13 +181,13 @@ def test_store_memory_tool_failure(mocker, mock_state, mock_sqlite_saver):
         mock_state: Fixture providing a mocked State object.
         mock_sqlite_saver: Fixture providing a mocked SqliteSaver checkpointer.
     """
-    mocker.patch("src.tools.budget", side_effect=Exception("Invalid budget data"))
+    mocker.patch("src.tools.budget", side_effect=Exception("1 validation error for budget\nsavings_goal\n  Field required [type=missing, input_value={'income': -1000}, input_type=dict]"))
     mock_state.messages = [AIMessage(content="", tool_calls=[{"name": "budget", "args": {"income": -1000}, "id": "call1"}])]
     config = {"configurable": {"user_id": "testuser", "thread_id": "thread1"}}
     result = store_memory(mock_state, config)
     assert isinstance(result, dict)
     assert "messages" in result
-    assert any(isinstance(msg, dict) and "Error: Tool budget failed with Invalid budget data" in msg["content"] for msg in result["messages"])
+    assert any(isinstance(msg, dict) and "Error: Tool budget failed with 1 validation error for budget" in msg["content"] for msg in result["messages"])
 
 def test_route_message_tool_call(mock_state):
     """Test route_message directs to store_memory for tool calls.
