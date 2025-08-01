@@ -14,5 +14,4 @@ openevals==0.1.0
 # Testing dependencies
 pytest==8.4.1
 pytest-mock==3.14.1
-
-# Tracing & Observability
+pytest-covs
