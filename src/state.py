@@ -7,7 +7,20 @@ from project_config import PROJECT_CONFIG
 
 @dataclass(kw_only=True)
 class State:
-    """State class for Aza Man financial assistant."""
+    """State class for Aza Man financial assistant.
+
+    Attributes:
+        messages (List[AnyMessage]): List of conversation messages.
+        username (str): User's name. Defaults to empty string.
+        income (float): User's total income. Defaults to 0.0.
+        budget_for_expenses (float): Budget allocated for expenses. Defaults to 0.0.
+        expense (float): Total expenses logged. Defaults to 0.0.
+        expenses (List[Dict[str, Any]]): List of expense entries. Defaults to empty list.
+        savings_goal (float): Target savings amount. Defaults to 0.0.
+        savings (float): Current savings amount. Defaults to 0.0.
+        currency (str): Currency code (e.g., "NGN"). Defaults to empty string.
+        summary (str): Summary of the conversation. Defaults to empty string.
+    """
     messages: Annotated[List[AnyMessage], add_messages] = field(default_factory=list)
     username: str = PROJECT_CONFIG["state_defaults"]["username"]
     income: float = PROJECT_CONFIG["state_defaults"]["income"]

@@ -15,7 +15,7 @@ data = [
     },
     {
         "Input": "Do you love me?",
-        "Output": "I am Aza man, here to help with your budget and expenses. Let's focus on your financial goals—how can I assist you?"
+        "Output": "I am Aza Man, here to help with your budget and expenses. Let's focus on your financial goals—how can I assist you?"
     },
     {
         "Input": "Add 30,000 NGN to savings",

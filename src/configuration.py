@@ -15,7 +15,15 @@ logger = logging.getLogger(__name__)
 
 @dataclass(kw_only=True)
 class Configuration:
-    """Configuration class for the Aza Man financial assistant."""
+    """Configuration class for the Aza Man financial assistant.
+
+    Attributes:
+        user_id (str): Unique identifier for the user. Defaults to "default".
+        thread_id (str): Identifier for the conversation thread. Defaults to "default".
+        model (str): The name of the language model to use. Defaults to project config.
+        provider (str): The LLM provider ("groq", "together", "openrouter"). Defaults to project config.
+        system_prompt (str): The system prompt template. Defaults to SYSTEM_PROMPT.
+    """
     user_id: str = "default"
     thread_id: str = "default"
     model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
@@ -29,34 +37,50 @@ class Configuration:
     system_prompt: str = SYSTEM_PROMPT
 
     def get_llm(self) -> Union[ChatGroq, ChatTogether, ChatOpenAI]:
-        """Initialize and return the language model with bound tools based on the provider."""
+        """Initialize and return the language model with bound tools based on the provider.
+
+        Returns:
+            Union[ChatGroq, ChatTogether, ChatOpenAI]: The configured language model instance.
+
+        Raises:
+            ValueError: If the provider is not supported.
+        """
         if "SSL_CERT_FILE" not in os.environ:
             os.environ["SSL_CERT_FILE"] = ""  # Fallback to avoid KeyError
-        if self.provider.lower() == "groq":
+        provider_lower = self.provider.lower()
+        if provider_lower == "groq":
             llm = ChatGroq(
                 model=self.model,
                 api_key=os.environ.get("GROQ_API_KEY")
             )
-        elif self.provider.lower() == "together":
+        elif provider_lower == "together":
             llm = ChatTogether(
                 model=self.model,
                 api_key=os.environ.get("TOGETHER_API_KEY")
             )
-        elif self.provider.lower() == "openrouter":
+        elif provider_lower == "openrouter":
             llm = ChatOpenAI(
                 model=self.model,
                 base_url="https://openrouter.ai/api/v1",
                 api_key=os.environ.get("OPENROUTER_API_KEY"),
-                default_headers={
-                    "X-Title": PROJECT_CONFIG["project_name"]
-                }
+                default_headers={"X-Title": PROJECT_CONFIG["project_name"]}
             )
         else:
             raise ValueError(f"Unsupported provider: {self.provider}. Use 'groq', 'together', or 'openrouter'.")
         return llm.bind_tools(ALL_TOOLS)
 
     def format_system_prompt(self, state) -> str:
-        """Format the system prompt with current state values."""
+        """Format the system prompt with current state values.
+
+        Args:
+            state: The current State object containing user data.
+
+        Returns:
+            str: The formatted system prompt with state values inserted.
+
+        Notes:
+            - Handles missing or invalid state attributes gracefully by using defaults.
+        """
         prompt = self.system_prompt
         format_args = {
             "username": state.username or "Unknown",
@@ -79,7 +103,14 @@ class Configuration:
 
     @classmethod
     def from_runnable_config(cls, config: Optional[RunnableConfig] = None) -> "Configuration":
-        """Create a Configuration instance from a RunnableConfig or environment variables."""
+        """Create a Configuration instance from a RunnableConfig or environment variables.
+
+        Args:
+            config (Optional[RunnableConfig]): The configuration from the LangGraph runtime.
+
+        Returns:
+            Configuration: A new Configuration instance with values from config or defaults.
+        """
         configurable = config["configurable"] if config and "configurable" in config else {}
         values = {
             "user_id": configurable.get("user_id", os.environ.get("USER_ID", "default")),

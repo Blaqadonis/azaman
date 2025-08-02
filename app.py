@@ -14,29 +14,23 @@ from dotenv import load_dotenv
 from src.graph import build_graph
 from project_config import PROJECT_CONFIG
 
-# Check if running in test environment
 def is_test_environment():
     return "pytest" in sys.modules or os.environ.get("PYTEST_CURRENT_TEST")
 
-# Set up logging
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# Load environment variables
 load_dotenv()
 
-# Ensure data directory exists
 data_dir = os.path.dirname(PROJECT_CONFIG["data_path"])
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
     logger.debug(f"Created data directory: {data_dir}")
 
-# Initialize the Graph
 conn = sqlite3.connect(PROJECT_CONFIG["data_path"], check_same_thread=False)
 checkpointer = SqliteSaver(conn)
 graph = build_graph(checkpointer)
 
-# Streamlit page configuration
 if not is_test_environment():
     st.set_page_config(
         page_title=PROJECT_CONFIG["project_name"],
@@ -45,7 +39,6 @@ if not is_test_environment():
         initial_sidebar_state="expanded"
     )
 
-# Custom CSS
 if not is_test_environment():
     st.markdown(f"""
         <style>
@@ -137,7 +130,6 @@ if not is_test_environment():
         </style>
     """, unsafe_allow_html=True)
 
-# Initialize session state
 if "page" not in st.session_state:
     st.session_state["page"] = "Login"
 if "messages" not in st.session_state:
@@ -148,7 +140,6 @@ if "show_popup" not in st.session_state:
     st.session_state["show_popup"] = not st.session_state["hide_welcome_popup"]
 
 def show_welcome_popup():
-    """Display welcome popup for new users."""
     if is_test_environment():
         logger.debug("Skipping dialog in test environment")
         return
@@ -170,7 +161,6 @@ def show_welcome_popup():
             logger.debug(f"StreamlitAPIException in dialog: {str(e)}")
 
 def login_page():
-    """Render login page with user ID validation."""
     show_welcome_popup()
     if not is_test_environment():
         st.markdown(f"<h1 style='color: var(--primary-red); text-align: center;'>Welcome to {PROJECT_CONFIG['project_name']}</h1>", unsafe_allow_html=True)
@@ -218,7 +208,6 @@ def landing_page():
         st.markdown("<div style='text-align: center; margin-top: 2rem;'><small>Developed by </small><a href='https://www.linkedin.com/in/chinonsoodiaka/' style='color: var(--primary-red); text-decoration: none; font-weight: bold;'>🅱🅻🅰🆀</a></div>", unsafe_allow_html=True)
 
 def chat_interface():
-    """Render chat interface with Aza Man graph responses."""
     if "user_id" not in st.session_state:
         if not is_test_environment():
             st.error("Please log in first!")
@@ -254,6 +243,7 @@ def chat_interface():
     if st.button("Send"):
         if prompt:
             st.session_state["messages"].append(HumanMessage(content=prompt))
+            logger.info(f"User {st.session_state['user_id']} sent message: {prompt}")
             if not is_test_environment():
                 with st.spinner("**...Thinking...**"):
                     try:
@@ -269,13 +259,13 @@ def chat_interface():
                         if not response:
                             response = "Sorry, I couldn't process that. Please try again."
                         st.session_state["messages"].append(AIMessage(content=response))
+                        logger.info(f"Assistant responded: {response}")
                     except Exception as e:
                         logger.error(f"Error in chat processing: {str(e)}")
                         response = f"Error: {str(e)}"
                         st.session_state["messages"].append(AIMessage(content=response))
                     st.rerun()
             else:
-                # Simulate response in test environment
                 try:
                     config = {"configurable": {"user_id": st.session_state["user_id"], "thread_id": st.session_state["thread_id"]}}
                     inputs = {"messages": [HumanMessage(content=prompt)]}
@@ -289,12 +279,12 @@ def chat_interface():
                     if not response:
                         response = "Sorry, I couldn't process that. Please try again."
                     st.session_state["messages"].append(AIMessage(content=response))
+                    logger.info(f"Assistant responded: {response}")
                 except Exception as e:
                     logger.error(f"Error in chat processing: {str(e)}")
                     st.session_state["messages"].append(AIMessage(content=f"Error: {str(e)}"))
 
 def dashboard_page():
-    """Render dashboard with financial metrics from Aza Man state."""
     if "user_id" not in st.session_state:
         if not is_test_environment():
             st.error("Please log in first!")
@@ -342,7 +332,6 @@ def dashboard_page():
             st.write("No expense trends to display yet.")
 
 def about_page():
-    """Render About page with project details and links."""
     if not is_test_environment():
         st.markdown(f"<h1 style='color: var(--primary-red); text-align: center;'>About</h1>", unsafe_allow_html=True)
         st.markdown(
@@ -360,7 +349,6 @@ def about_page():
         )
 
 def main():
-    """Main application logic."""
     if not is_test_environment():
         st.sidebar.title("Navigation")
         page = st.sidebar.selectbox("Select Page", ["Home", "Chat", "Dashboard", "About"], disabled=(st.session_state["page"] == "Login"))
