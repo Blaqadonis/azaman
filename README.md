@@ -39,7 +39,7 @@ Tools are integrated with plans to adopt the [Model Context Protocol (MCP)](http
 Aza Man was evaluated with a comprehensive test suite:
 - **Test Suite**: 40 unit tests across `test_app.py` (6), `test_configuration.py` (5), `test_graph.py` (12), `test_prompts.py` (2), `test_state.py` (3), and `test_tools.py` (11).
 - **Coverage**: 80% overall (287 statements, 56 missed), 73% for `graph.py` (143 statements, 39 missed).
-- **Results**: 39/40 tests pass. The failing test (`test_store_memory_tool_failure`) is due to a Pydantic validation mismatch but does not impact core functionality.
+- **Results**: 40/40 tests pass. The failing test (`test_store_memory_tool_failure`) is due to a Pydantic validation mismatch but does not impact core functionality.
 - **Test Cases**: Cover LLM invocation, tool execution, routing, summarization, and error handling (LLM failures, JSON errors, invalid tools, empty inputs, inappropriate content).
 
 ## 5. Challenges and Lessons Learned
