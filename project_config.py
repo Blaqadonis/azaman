@@ -19,7 +19,7 @@ PROJECT_CONFIG = {
     "author_linkedin": "https://www.linkedin.com/in/chinonsoodiaka/",
     "author_name": "🅱🅻🅰🆀",
     "data_path": "data/azaman.db",
-    "model": "meta-llama/llama-4-maverick-17b-128e-instruct",
+    "model": "moonshotai/kimi-k2-instruct",
     "evaluator": "deepseek-ai/DeepSeek-V3",
     "provider": "groq",
     "currency_default": "NGN",
