@@ -38,9 +38,9 @@ Tools are integrated with plans to adopt the [Model Context Protocol (MCP)](http
 Aza Man was evaluated with a comprehensive test suite:
 - **Test Suite**: 38 unit tests across `test_app.py` (6), `test_configuration.py` (5), `test_graph.py` (7), `test_prompts.py` (2), `test_state.py` (3), and `test_tools.py` (15).
 - **Coverage**: 79% overall (267 statements, 56 missed), 66% for `graph.py` (102 statements, 35 missed).
-- **Results**: 38/38 tests pass. A previous failure in `test_store_memory_tool_error` was resolved by updating the test to match Pydantic validation errors for the `budget` tool.
+- **Results**: 38/38 tests pass.
 - **Test Cases**: Cover LLM invocation, tool execution, routing, summarization, and error handling (LLM failures, JSON errors, invalid tools, empty inputs, inappropriate content).
-- **Coverage Gaps**: The 66% coverage for `graph.py` indicates untested branches in `call_model` (e.g., JSON parsing errors) and `summarize_conversation`. Future tests will target these areas to reach ~80% coverage.
+- **Coverage Gaps**: The 66% coverage for `graph.py` indicates untested branches in `call_model` and `summarize_conversation`. Future tests will target these areas to reach ~80% coverage.
 
 ## 5. Challenges and Lessons Learned
 - **Streamlit & Async Events**: Streamlit struggles with async endpoints. Synchronous calls were used, but Gradio may be explored for async support.
@@ -80,9 +80,8 @@ Aza Man was evaluated with a comprehensive test suite:
    LANGCHAIN_API_KEY=your_langchain_api_key
    LANGCHAIN_PROJECT=Aza Man_FOR_AAIDC2025
    ```
-   See `.env.sample` for a template.
 6. **Configure Line Endings**:
-   The repository includes a `.gitattributes` file to ensure consistent line endings (`*.py text eol=lf`), preventing `LF will be replaced by CRLF` warnings on Windows.
+   The repository includes a `.gitattributes` file to ensure consistent line endings.
 7. **Update `project_config.py`**:
    Edit `project_config.py` to set `model`, `evaluator`, and `provider` (e.g., `groq`, `together`, `openrouter`):
    ```python
